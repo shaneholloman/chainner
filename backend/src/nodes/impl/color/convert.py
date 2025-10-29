@@ -1,7 +1,8 @@
 from __future__ import annotations
 
+from collections.abc import Callable, Iterable
 from dataclasses import dataclass, field
-from typing import Callable, Generic, Iterable, TypeVar
+from typing import Generic, TypeVar
 
 import numpy as np
 
@@ -35,7 +36,7 @@ T = TypeVar("T")
 
 
 @dataclass(order=True)
-class __ProcessingItem(Generic[T]):  # noqa: N801
+class __ProcessingItem(Generic[T]):
     cost: int
     path: list[T] = field(compare=False)
 

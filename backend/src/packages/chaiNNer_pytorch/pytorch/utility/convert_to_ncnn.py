@@ -46,13 +46,13 @@ def convert_to_ncnn_node(
     context: NodeContext, model: ImageModelDescriptor, is_fp16: int
 ) -> tuple[NcnnModelWrapper, str]:
     try:
-        from nodes.impl.onnx.load import load_onnx_model
-        from nodes.impl.pytorch.convert_to_onnx_impl import (
+        from nodes.impl.onnx.load import load_onnx_model  # ruff-disable=PLC0415
+        from nodes.impl.pytorch.convert_to_onnx_impl import (  # ruff-disable=PLC0415
             convert_to_onnx_impl,
             is_onnx_supported,
         )
 
-        from ....chaiNNer_onnx.onnx.utility.convert_to_ncnn import (
+        from ....chaiNNer_onnx.onnx.utility.convert_to_ncnn import (  # ruff-disable=PLC0415
             convert_to_ncnn_node as onnx_convert_to_ncnn_node,
         )
     except Exception as e:
@@ -64,7 +64,7 @@ def convert_to_ncnn_node(
         )
 
     assert is_onnx_supported(model) and not isinstance(
-        model.model, (HAT, DAT, OmniSR, SwinIR, Swin2SR, SCUNet, SPAN, SRFormer)
+        model.model, HAT | DAT | OmniSR | SwinIR | Swin2SR | SCUNet | SPAN | SRFormer
     ), f"{model.architecture.name} is not supported for NCNN conversions at this time."
 
     exec_options = get_settings(context)

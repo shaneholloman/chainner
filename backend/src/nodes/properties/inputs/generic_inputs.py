@@ -260,7 +260,7 @@ class EnumInput(DropDownInput[E]):
         variant_types: list[str] = []
         for variant in enum:
             value = variant.value
-            assert isinstance(value, (int, str))
+            assert isinstance(value, int | str)
 
             variant_type = EnumInput.get_variant_type(variant, type_name)
             option_label = option_labels.get(
@@ -312,9 +312,9 @@ class EnumInput(DropDownInput[E]):
         if type_name is None:
             type_name = enum.__name__
 
-        assert (
-            re.match(r"^[a-zA-Z_][a-zA-Z0-9_]*$", variant.name) is not None
-        ), f"Expected the name of {enum.__name__}.{variant.name} to be snake case."
+        assert re.match(r"^[a-zA-Z_][a-zA-Z0-9_]*$", variant.name) is not None, (
+            f"Expected the name of {enum.__name__}.{variant.name} to be snake case."
+        )
 
         return f"{type_name}::{join_pascal_case(split_snake_case(variant.name))}"
 
@@ -460,7 +460,7 @@ class SeedInput(NumberInput):
     def enforce(self, value: object) -> Seed:  # type: ignore
         if isinstance(value, Seed):
             return value
-        if isinstance(value, (int, float, str)):
+        if isinstance(value, int | float | str):
             return Seed(int(value))
         raise ValueError(f"Cannot convert {value} to Seed")
 
@@ -509,9 +509,9 @@ class ColorInput(BaseInput[Color]):
                 else:
                     raise ValueError("Cannot find default color value")
             else:
-                assert (
-                    default.channels in self.channels
-                ), "The default color is not accepted."
+                assert default.channels in self.channels, (
+                    "The default color is not accepted."
+                )
 
         self.default: Color = default
 

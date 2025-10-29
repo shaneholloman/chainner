@@ -1,8 +1,8 @@
 from __future__ import annotations
 
+from collections.abc import Callable, Sequence
 from dataclasses import dataclass
 from functools import cached_property
-from typing import Callable, Sequence
 
 import pynvml as nv
 
@@ -150,4 +150,4 @@ def _get_nvidia_info() -> NvInfo:
 nvidia = _get_nvidia_info()
 
 
-__all__ = ["nvidia", "NvInfo", "NvDevice", "MemoryUsage"]
+__all__ = ["MemoryUsage", "NvDevice", "NvInfo", "nvidia"]
